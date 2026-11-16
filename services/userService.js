@@ -13,6 +13,17 @@ exports.createUser = async (name, email, password) => {
     return await user.save();
 }
 
+exports.updateUser = async (id, data) => {
+    return await User.findByIdAndUpdate(
+        id,
+        data,
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+}
+
 exports.deleteUser = async (id) => {
     return await User.findByIdAndDelete(id);
 }

@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const userService = require('../services/userService');
 
 exports.addUser = async (req, res) => {
@@ -26,5 +27,35 @@ exports.addUser = async (req, res) => {
         }
 
         return res.status(500).send('Internal server error');
+    }
+}
+
+exports.deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.isObjectIdOrHexString(id)) {
+            return res.status(400).json({
+                message: 'Invalid user ID'
+            });
+        }
+
+        const user = await userService.deleteUser(id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'User deleted successfully'
+        });
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            message: 'Internal server error'
+        });
     }
 }

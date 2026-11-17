@@ -28,3 +28,14 @@ exports.updateCatway = async (id, data) => {
         }
     );
 }
+
+exports.replaceCatway = async (id, data) => {
+    return await Catway.findOneAndReplace(
+        { _id: id },
+        data,
+        {
+            new: true,
+            runValidators: true
+        }
+    )
+}

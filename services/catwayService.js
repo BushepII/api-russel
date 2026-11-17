@@ -39,3 +39,7 @@ exports.replaceCatway = async (id, data) => {
         }
     )
 }
+
+exports.deleteCatway = async (id) => {
+    return await Catway.findByIdAndDelete(id);
+}

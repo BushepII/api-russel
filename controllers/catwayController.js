@@ -91,7 +91,7 @@ exports.updateCatway = async (req, res) => {
 
         if (!mongoose.isObjectIdOrHexString(id)) {
             return res.status(400).json({
-                message: 'Invalid user ID'
+                message: 'Invalid catway ID'
             });
         }
         
@@ -149,7 +149,7 @@ exports.replaceCatway = async (req, res) => {
 
         if (!mongoose.isObjectIdOrHexString(id)) {
             return res.status(400).json({
-                message: 'Invalid user ID'
+                message: 'Invalid catway ID'
             });
         }
 
@@ -195,6 +195,36 @@ exports.replaceCatway = async (req, res) => {
                 message: 'Catway number already exists'
             });
         }
+
+        return res.status(500).json({
+            message: 'Internal server error'
+        });
+    }
+}
+
+exports.deleteCatway = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.isObjectIdOrHexString(id)) {
+            return res.status(400).json({
+                message: 'Invalid catway ID'
+            });
+        }
+
+        const catway = await catwayService.deleteCatway(id);
+
+        if (!catway) {
+            return res.status(404).json({
+                message: 'Catway not found'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Catway deleted successfully'
+        });
+    } catch (error) {
+        console.error(error);
 
         return res.status(500).json({
             message: 'Internal server error'

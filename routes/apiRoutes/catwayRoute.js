@@ -6,5 +6,6 @@ router.post("/", catwayController.addCatway);
 router.get("/", catwayController.getAllCatways);
 router.get("/:id", catwayController.getCatway);
 router.patch("/:id", catwayController.updateCatway);
+router.put("/:id", catwayController.replaceCatway)
 
 module.exports = router;

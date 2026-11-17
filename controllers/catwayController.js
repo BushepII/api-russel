@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const catwayService = require('../services/catwayService');
 
 exports.addCatway = async (req, res) => {
@@ -46,6 +47,35 @@ exports.getAllCatways = async (req, res) => {
         return res.status(200).json({
             message: 'Catways retrieved successfully',
             catways
+        });
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).send('Internal server error');
+    }
+}
+
+exports.getCatway = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.isObjectIdOrHexString(id)) {
+            return res.status(400).json({
+                message: 'Invalid catway ID'
+            });
+        }
+
+        const catway = await catwayService.getCatway(id);
+
+        if (!catway) {
+            return res.status(404).json({
+                message: 'Catway not found'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Catway retrieved successfully',
+            catway
         });
     } catch (error) {
         console.log(error);

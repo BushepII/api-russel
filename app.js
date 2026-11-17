@@ -32,4 +32,4 @@ mongoose.connect(process.env.MONGO_URL)
 
 app.use("/api/user", apiUserRouter);
 app.use("/api/auth", apiAuthRouter);
-app.use("/api/catway", apiCatwayRouter);
+app.use("/api/catways", apiCatwayRouter);

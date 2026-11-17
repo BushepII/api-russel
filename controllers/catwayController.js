@@ -83,3 +83,61 @@ exports.getCatway = async (req, res) => {
         return res.status(500).send('Internal server error');
     }
 }
+
+exports.updateCatway = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { catwayNumber, type, catwayState } = req.body ?? {};
+
+        if (!mongoose.isObjectIdOrHexString(id)) {
+            return res.status(400).json({
+                message: 'Invalid user ID'
+            });
+        }
+        
+        const data = {}
+
+        if (catwayNumber !== undefined) {
+            data.catwayNumber = catwayNumber;
+        }
+
+        if (type !== undefined) {
+            data.type = type.trim().toLowerCase();
+        }
+
+        if (catwayState !== undefined) {
+            data.catwayState = catwayState.trim();
+        }
+
+        if (Object.keys(data).length === 0) {
+            return res.status(400).json({
+                message: 'No valid fields to update'
+            });
+        }
+
+        const catway = await catwayService.updateCatway(id, data);
+
+        if (!catway) {
+            return res.status(404).json({
+                message: 'Catway not found'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Catway updated successfully'
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        if (error.code === 11000) {
+            return res.status(409).json({
+                message: 'Catway number already exists'
+            });
+        }
+
+        return res.status(500).json({
+            message: 'Internal server error'
+        });
+    }
+}

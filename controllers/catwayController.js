@@ -38,3 +38,18 @@ exports.addCatway = async (req, res) => {
         return res.status(500).send('Internal server error');
     }
 }
+
+exports.getAllCatways = async (req, res) => {
+    try {
+        const catways = await catwayService.getAllCatways();
+
+        return res.status(200).json({
+            message: 'Catways retrieved successfully',
+            catways
+        });
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).send('Internal server error');
+    }
+}

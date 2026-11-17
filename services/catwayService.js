@@ -9,3 +9,7 @@ exports.createCatway = async (catwayNumber, type, catwayState) => {
 
     return await catway.save();
 }
+
+exports.getAllCatways = async () => {
+    return await Catway.find();
+}

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const userService = require('../services/userService');
+const userService = require('../../services/userService');
 
 exports.addUser = async (req, res) => {
     try {

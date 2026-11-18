@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Russell</title>
+</head>
+<body>
+    <h1>Application de gestion du port de plaisance Russell</h1>
+    <h2>Présentation de l'application</h2>
+    <p>Créez et gérer vos catways et les réservations de bateaux pour chaque catway.</p>
+    <h2>Connexion</h2>
+    <form id="loginForm">
+        <label for="email">Email:</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            required
+        >
+
+        <label for="password">Password:</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            required
+        >
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="message" role="status"></p>
+
+    <script src="/js/login.js"></script>
+</body>
+</html>

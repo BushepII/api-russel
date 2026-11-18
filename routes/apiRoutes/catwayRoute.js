@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const catwayController = require('../../controllers/catwayController');
+const catwayController = require('../../controllers/apiControllers/catwayController');
 
 router.post("/", catwayController.addCatway);
 router.get("/", catwayController.getAllCatways);

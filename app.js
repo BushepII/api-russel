@@ -7,6 +7,7 @@ const apiUserRouter = require("./routes/apiRoutes/userRoute");
 const apiAuthRouter = require("./routes/apiRoutes/authRoute");
 const apiCatwayRouter = require("./routes/apiRoutes/catwayRoute");
 const apiReservationRouter = require("./routes/apiRoutes/reservationRoute");
+const authMiddleware = require('./middlewares/auth');
 
 const app = express();
 
@@ -31,7 +32,7 @@ mongoose.connect(process.env.MONGO_URL)
 )
 .catch((err) => console.error("Error MongoDB :", err));
 
-app.use("/api/user", apiUserRouter);
 app.use("/api/auth", apiAuthRouter);
-app.use("/api/catways", apiCatwayRouter);
-app.use("/api/catways/:id/reservations", apiReservationRouter);
+app.use("/api/user", authMiddleware.verifyToken, apiUserRouter);
+app.use("/api/catways", authMiddleware.verifyToken, apiCatwayRouter);
+app.use("/api/catways/:id/reservations", authMiddleware.verifyToken, apiReservationRouter);

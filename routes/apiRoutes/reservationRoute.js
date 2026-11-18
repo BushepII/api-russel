@@ -4,5 +4,6 @@ const reservationController = require('../../controllers/reservationController')
 
 router.post('/', reservationController.postReservation);
 router.get('/', reservationController.getAllReservations);
+router.get('/:idReservation', reservationController.getReservation);
 
 module.exports = router;

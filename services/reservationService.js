@@ -22,3 +22,7 @@ exports.createReservation = async (data) => {
 
     return { reservation: await reservation.save()};
 }
+
+exports.getAllReservations = async () => {
+    return await Reservation.find();
+}

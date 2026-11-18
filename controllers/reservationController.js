@@ -143,3 +143,33 @@ exports.getReservation = async (req, res) => {
         return res.status(500).send('Internal server error');
     }
 }
+
+exports.deleteReservation = async (req, res) => {
+    try {
+        const { id, idReservation } = req.params;
+
+        if (!mongoose.isObjectIdOrHexString(id) || !mongoose.isObjectIdOrHexString(idReservation)) {
+            return res.status(400).json({
+                message: 'Invalid catway or reservation ID'
+            });
+        }
+
+        const reservation = await reservationService.deleteReservation(id, idReservation);
+
+        if (!reservation) {
+            return res.status(404).json({
+                message: 'Reservation not found'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Reservation deleted successfully'
+        });
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            message: 'Internal server error'
+        });
+    }
+}

@@ -33,3 +33,10 @@ exports.getReservation = async (idCatway, idReservation) => {
         catway: idCatway
     });
 }
+
+exports.deleteReservation = async (idCatway, idReservation) => {
+    return await Reservation.findOneAndDelete({
+        _id: idReservation,
+        catway: idCatway
+    });
+}

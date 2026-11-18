@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const catwayService = require('../services/catwayService');
+const catwayService = require('../../services/catwayService');
 
 exports.addCatway = async (req, res) => {
     try {

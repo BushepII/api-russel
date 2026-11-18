@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const reservationService = require('../services/reservationService');
+const reservationService = require('../../services/reservationService');
 
 
 const parseFrenchDate = (value) => {

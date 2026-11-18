@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const apiUserRouter = require("./routes/apiRoutes/userRoute");
 const apiAuthRouter = require("./routes/apiRoutes/authRoute");
 const apiCatwayRouter = require("./routes/apiRoutes/catwayRoute");
+const apiReservationRouter = require("./routes/apiRoutes/reservationRoute");
 
 const app = express();
 
@@ -33,3 +34,4 @@ mongoose.connect(process.env.MONGO_URL)
 app.use("/api/user", apiUserRouter);
 app.use("/api/auth", apiAuthRouter);
 app.use("/api/catways", apiCatwayRouter);
+app.use("/api/catways/:id/reservations", apiReservationRouter);

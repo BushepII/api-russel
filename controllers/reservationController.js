@@ -87,12 +87,56 @@ exports.postReservation = async (req, res) => {
 
 exports.getAllReservations = async (req, res) => {
     try {
-        const reservations = await reservationService.getAllReservations();
+        const { id } = req.params;
+
+        if (!mongoose.isObjectIdOrHexString(id)) {
+            return res.status(400).json({
+                message: 'Invalid catway or reservation ID'
+            });
+        }
+
+        const reservations = await reservationService.getAllReservations(id);
+
+        if (reservations.length === 0) {
+            return res.status(200).json({
+                message: 'This catway has no reservations'
+            })
+        }
 
         return res.status(200).json({
             message: 'Reservations retrieved successfully',
             reservations
         });
+    } catch (error) {
+        console.log(error);
+
+        return res.status(500).send('Internal server error');
+    }
+}
+
+exports.getReservation = async (req, res) => {
+    try {
+        const { id, idReservation } = req.params;
+
+        if (!mongoose.isObjectIdOrHexString(id)  || !mongoose.isObjectIdOrHexString(idReservation)){
+            return res.status(400).json({
+                message: 'Invalid reservation ID'
+            });
+        }
+
+        const reservation = await reservationService.getReservation(id, idReservation);
+
+        if (!reservation) {
+            return res.status(404).json({
+                message: 'Reservation not found'
+            });
+        }
+
+        return res.status(200).json({
+            message: 'Reservation retrieved successfully',
+            reservation
+        });
+        
     } catch (error) {
         console.log(error);
 

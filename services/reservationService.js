@@ -23,6 +23,13 @@ exports.createReservation = async (data) => {
     return { reservation: await reservation.save()};
 }
 
-exports.getAllReservations = async () => {
-    return await Reservation.find();
+exports.getAllReservations = async (catwayId) => {
+    return await Reservation.find({ catway: catwayId });
+}
+
+exports.getReservation = async (idCatway, idReservation) => {
+    return await Reservation.findOne({
+        _id: idReservation,
+        catway: idCatway
+    });
 }
